@@ -168,5 +168,28 @@ function ArmPage({ kind }) {
   );
 }
 
-export function StudioPage() { return <ArmPage kind="studio" />; }
-export function SupplyPage() { return <ArmPage kind="supply" />; }
+export function StudioPage() {
+  return (
+    <div className="pf-page">
+      <section className="pf-container">
+        <div className="pf-section-head">
+          <p className="pf-eyebrow">03 · STUDIO</p>
+        </div>
+        <p className="pf-body" style={{ color: "var(--pf-terra)" }}>Sorry, busy designing in the studio.</p>
+      </section>
+    </div>
+  );
+}
+
+export function SupplyPage() {
+  return (
+    <div className="pf-page">
+      <section className="pf-container">
+        <div className="pf-section-head">
+          <p className="pf-eyebrow">04 · SUPPLY</p>
+        </div>
+        <p className="pf-body" style={{ color: "var(--pf-terra)" }}>Sorry, busy designing in the workshop.</p>
+      </section>
+    </div>
+  );
+}

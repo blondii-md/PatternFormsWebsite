@@ -1,5 +1,4 @@
 import React from 'react';
-import { TileComposition, pickBlogComp } from '../lib/compositions';
 
 export const BLOG_POSTS = [
   {
@@ -121,8 +120,8 @@ export function WorkingsIndexPage() {
           </div>
         ) : (
           <div className="pf-workings-grid">
-            {sorted.map((post, i) => (
-              <BlogCard key={post.slug} post={post} idx={i + 1} total={sorted.length} />
+            {sorted.map((post) => (
+              <BlogCard key={post.slug} post={post} />
             ))}
           </div>
         )}
@@ -149,82 +148,25 @@ export function WorkingsIndexPage() {
   );
 }
 
-function BlogCard({ post, idx, total }) {
+function BlogCard({ post }) {
   return (
     <a href={`#/blog/${post.slug}`} className="pf-blog-card">
-      <div className="pf-blog-cover-wrap">
-        {post.cover ? (
-          <img src={post.cover} alt="" loading="lazy" />
-        ) : (
-          <div className="pf-blog-tilecover">
-            <TileComposition
-              comp={pickBlogComp(post.seed)}
-              cell={56}
-              color="#0A0A0A"
-              terraColor="#B8553A"
-              interactive
-              ariaHidden
-            />
-          </div>
-        )}
-        <div className="pf-blog-cover-meta">
-          <span>FIG. {String(idx).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
-          <span>{post.tag}</span>
-        </div>
-      </div>
-      <div className="pf-blog-card-body">
-        <div className="pf-blog-date">{formatDate(post.date)}</div>
-        <h3 className="pf-blog-title">{post.titleDisplay}</h3>
-        <p className="pf-blog-excerpt">{post.excerpt}</p>
-        <span className="pf-blog-readmore">READ &nbsp;→</span>
+      <div className="pf-blog-tag">{post.tag}</div>
+      <h3 className="pf-blog-title">{post.titleDisplay}</h3>
+      <p className="pf-blog-excerpt">{post.excerpt}</p>
+      <div className="pf-blog-foot">
+        <span className="pf-blog-date">{formatDate(post.date)}</span>
+        <span className="pf-blog-readmore">READ →</span>
       </div>
       <style>{`
         .pf-blog-card {
           display: flex;
           flex-direction: column;
-          background: var(--pf-paper);
-          border: 1px solid var(--pf-grey-30);
-          color: var(--pf-ink);
-          transition: border-color 240ms var(--pf-ease-snap);
-        }
-        .pf-blog-card:hover { border-color: var(--pf-ink); }
-        .pf-blog-cover-wrap {
-          position: relative;
-          aspect-ratio: 4 / 3;
-          overflow: hidden;
-          background: var(--pf-grey-10);
-          border-bottom: 1px solid var(--pf-grey-30);
-        }
-        .pf-blog-cover-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .pf-blog-tilecover {
-          width: 100%; height: 100%;
-          padding: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .pf-blog-tilecover > svg { max-width: 100%; max-height: 100%; }
-        .pf-blog-cover-meta {
-          position: absolute;
-          inset: auto 0 0 0;
-          display: flex;
-          justify-content: space-between;
-          padding: 8px 12px;
-          background: rgba(246, 244, 239, 0.92);
-          border-top: 1px solid var(--pf-grey-30);
-          font-family: var(--pf-font-body);
-          font-size: 10px;
-          letter-spacing: 0.10em;
-          text-transform: uppercase;
-          color: var(--pf-grey-60);
-        }
-        .pf-blog-card-body {
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
           gap: 12px;
+          color: var(--pf-ink);
+          padding: 0 0 32px;
         }
-        .pf-blog-date {
+        .pf-blog-tag {
           font-family: var(--pf-font-body);
           font-size: 11px;
           letter-spacing: 0.10em;
@@ -240,10 +182,6 @@ function BlogCard({ post, idx, total }) {
           text-transform: uppercase;
           margin: 0;
           color: var(--pf-ink);
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
           transition: color 240ms var(--pf-ease-snap);
         }
         .pf-blog-card:hover .pf-blog-title { color: var(--pf-terra); }
@@ -253,10 +191,20 @@ function BlogCard({ post, idx, total }) {
           line-height: 1.55;
           color: var(--pf-grey-60);
           margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
+        }
+        .pf-blog-foot {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
+          padding-top: 8px;
+        }
+        .pf-blog-date {
+          font-family: var(--pf-font-body);
+          font-size: 11px;
+          letter-spacing: 0.10em;
+          text-transform: uppercase;
+          color: var(--pf-grey-60);
         }
         .pf-blog-readmore {
           font-family: var(--pf-font-display);
@@ -265,7 +213,6 @@ function BlogCard({ post, idx, total }) {
           letter-spacing: 0.16em;
           text-transform: uppercase;
           color: var(--pf-ink);
-          margin-top: 8px;
           transition: color 240ms var(--pf-ease-snap);
         }
         .pf-blog-card:hover .pf-blog-readmore { color: var(--pf-terra); }
@@ -330,9 +277,7 @@ export function PostPage({ slug }) {
             ))}
           </div>
 
-          <hr className="pf-rule" style={{ margin: "80px 0 32px" }} />
-
-          <a href="#/blog" className="pf-back-link">
+          <a href="#/blog" className="pf-back-link" style={{ marginTop: "80px" }}>
             <span>←</span> Back to Output
           </a>
         </div>

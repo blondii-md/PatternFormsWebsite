@@ -165,21 +165,19 @@ export function Footer() {
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
             <div className="pf-footer-nav-col">
-              <h4>Lab</h4>
+              <h4>Atelier</h4>
               {NAV_ITEMS.map((n) => (
                 <a key={n.route} href={`#${n.route}`}>{n.label}</a>
               ))}
             </div>
             <div className="pf-footer-nav-col">
               <h4>Contact</h4>
-              <a href="mailto:hello@patternforms.studio">hello@patternforms.studio</a>
+              <a href="mailto:iwant@patternforms.au">iwant@patternforms.au</a>
               <a href="#/patternhouse" aria-label="PatternHouse">PatternHouse →</a>
             </div>
           </div>
         </div>
 
-        <hr className="pf-footer-rule" />
-        <FooterTileBand />
         <hr className="pf-footer-rule" />
 
         <div className="pf-footer-bottom">

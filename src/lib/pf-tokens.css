@@ -21,9 +21,9 @@
   --pf-grey-10:    #EBE9E4;
   --pf-terra:      #B8553A;
 
-  /* ─── Semantic · surface (paper default) ──────────────────────────── */
-  --pf-bg:         var(--pf-paper);
-  --pf-bg-card:    var(--pf-paper);
+  /* ─── Semantic · surface (white default — PatternForms canonical) ─── */
+  --pf-bg:         var(--pf-white);
+  --pf-bg-card:    var(--pf-white);
   --pf-bg-elev:    var(--pf-white);
   --pf-fg:         var(--pf-ink);
   --pf-fg-muted:   var(--pf-grey-60);

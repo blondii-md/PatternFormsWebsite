@@ -4,64 +4,23 @@ const FOUNDERS = [
   {
     name: "MIYAN DAGAN",
     role: "Co-founder · Studio lead",
-    mask: "semicircle",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/miyanmd/",
     bio: "Two decades learning, designing and generating buildings and engineered products for market. Always thinking about our next thing.",
   },
   {
     name: "ROB NESTIC",
     role: "Co-founder · Supply lead",
-    mask: "quartercircle",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/robert-nestic-5a26b527/",
     bio: "3 decades on Building Engineering and an Engineered Timber expert. Loves building things from the workshop.",
   },
 ];
 
-function PortraitMask({ mask }) {
-  const id = React.useId();
-  const clipId = `mask-${id}`;
-  const path = {
-    semicircle:    `M 0 0 L 2 0 L 2 1 A 1 1 0 0 1 0 1 Z M 0 1 L 2 1 L 2 2 L 0 2 Z`,
-    quartercircle: `M 0 0 L 2 0 A 2 2 0 0 1 0 2 L 0 0 Z`,
-    disc:          `M 1 0 A 1 1 0 0 1 1 2 A 1 1 0 0 1 1 0 Z`,
-  }[mask] || `M 0 0 H 2 V 2 H 0 Z`;
-
-  return (
-    <div className="pf-portrait">
-      <svg viewBox="0 0 2 2" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
-            <path d={path} />
-          </clipPath>
-        </defs>
-        <g clipPath={`url(#${clipId})`}>
-          <rect x="0" y="0" width="2" height="2" fill="#C9C7C2" />
-          {Array.from({ length: 18 }, (_, i) => (
-            <line
-              key={i}
-              x1={0} y1={i * 0.12}
-              x2={2} y2={i * 0.12}
-              stroke="#B8B6B0"
-              strokeWidth={0.006}
-            />
-          ))}
-          <text x="1" y="1.05" fill="#6B6B6B" fontFamily="'IBM Plex Mono', monospace" fontSize="0.075" letterSpacing="0.012" textAnchor="middle">
-            PORTRAIT
-          </text>
-          <text x="1" y="1.16" fill="#6B6B6B" fontFamily="'IBM Plex Mono', monospace" fontSize="0.06" letterSpacing="0.012" textAnchor="middle">
-            SUPPLIED LATER
-          </text>
-        </g>
-      </svg>
-    </div>
-  );
-}
 
 export default function AboutPage() {
   return (
     <div className="pf-page">
       <section className="pf-container">
-        <div className="pf-section-head">
+        <div className="pf-section-head" style={{ marginBottom: 24 }}>
           <p className="pf-eyebrow">02 · ABOUT</p>
         </div>
 
@@ -77,65 +36,54 @@ export default function AboutPage() {
             <div style={{ color: "var(--pf-terra)" }}>PATTERNHOUSE — IN DEV.</div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 28, maxWidth: 720 }}>
-            <p className="pf-lede" style={{ color: "var(--pf-ink)" }}>
-              Research and design atelier for productised building based in Melbourne, Australia.
+          <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 720 }}>
+            <p className="pf-body">
+              We are a research and design atelier for productised building based in Melbourne, Australia.
             </p>
-            <p className="pf-body" style={{ fontSize: 15 }}>
-              We develop the methodology, parts, and intellectual property behind a
-              new kind of construction — designed, documented, and supplied as a system.
+            <p className="pf-body">
+              We believe that buildings in Australia should be a predictable, safe and transparent journey.
+              We develop the architectural framework, methodology, parts, and intellectual property behind
+              a new kind of construction — designed, documented, and supplied as a system.
             </p>
-            <p className="pf-body" style={{ fontSize: 15 }}>
-              The company operates as two arms with R&amp;D running through both.
-              Studio covers architecture, engineering, and digital systems. Supply covers
-              procurement, fabrication, and manufacturing.
+            <p className="pf-body">
+              Our first product line, <span style={{ color: "var(--pf-terra)" }}>PatternHouse</span>, is in development.
             </p>
-            <p className="pf-body" style={{ fontSize: 15, color: "var(--pf-grey-60)" }}>
-              Founded by Miyan Dagan and Rob Nestic. Our first product line,{" "}
-              <span style={{ color: "var(--pf-terra)" }}>PatternHouse</span>, is in development.
+            <p className="pf-body">
+              The company operates as two arms with R&amp;D running through both.<br />
+              — Studio covers architecture, engineering, and digital systems.<br />
+              — Supply covers procurement, fabrication, and manufacturing.
             </p>
+            <p className="pf-body" style={{ color: "var(--pf-grey-60)" }}>
+              Founded by Miyan Dagan and Rob Nestic.
+            </p>
+
+            <div className="pf-founders-grid">
+              {FOUNDERS.map((f) => (
+                <div key={f.name} className="pf-founder-meta">
+                  <div className="pf-founder-name">{f.name}</div>
+                  <div className="pf-founder-role">{f.role}</div>
+                  <p className="pf-body" style={{ marginTop: 8 }}>{f.bio}</p>
+                  <a className="pf-arrow-link" href={f.linkedin} target="_blank" rel="noreferrer" style={{ marginTop: "auto", paddingTop: 12 }}>
+                    LinkedIn <span className="arrow">→</span>
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="pf-container pf-founders-sec">
-        <div className="pf-section-head">
-          <p className="pf-eyebrow">02.01 · FOUNDERS</p>
-        </div>
-
-        <div className="pf-founders-grid">
-          {FOUNDERS.map((f) => (
-            <article key={f.name} className="pf-founder">
-              <PortraitMask mask={f.mask} />
-              <div className="pf-founder-meta">
-                <div className="pf-founder-name">{f.name}</div>
-                <div className="pf-founder-role">{f.role}</div>
-                <p className="pf-body" style={{ marginTop: 8, fontSize: 13 }}>{f.bio}</p>
-                <a className="pf-arrow-link" href={f.linkedin} style={{ marginTop: 12 }}>
-                  LinkedIn <span className="arrow">→</span>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <style>{`
-        .pf-founders-sec { padding-top: 128px; }
-        @media (max-width: 768px) { .pf-founders-sec { padding-top: 96px; } }
-
         .pf-founders-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 64px;
-          align-items: flex-start;
+          margin-top: 8px;
         }
         @media (max-width: 768px) {
-          .pf-founders-grid { grid-template-columns: 1fr; gap: 56px; }
+          .pf-founders-grid { grid-template-columns: 1fr; gap: 40px; }
         }
-        .pf-founder { display: flex; flex-direction: column; gap: 24px; }
-        .pf-portrait { width: 100%; aspect-ratio: 1 / 1; max-width: 360px; }
-        .pf-founder-meta { display: flex; flex-direction: column; gap: 6px; max-width: 360px; }
+        .pf-founder-meta { display: flex; flex-direction: column; gap: 6px; }
         .pf-founder-name {
           font-family: var(--pf-font-display);
           font-weight: 700;
