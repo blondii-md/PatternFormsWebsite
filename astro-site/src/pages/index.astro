@@ -3,12 +3,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { TileShuffleHero } from '../components/animations.jsx';
 
 const gridCols = Array.from({ length: 13 }, (_, i) => (i / 12) * 100);
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PatternForms",
+  "url": "https://pattern-forms-website.vercel.app",
+  "logo": "https://pattern-forms-website.vercel.app/favicon.svg",
+  "description": "A research-and-design atelier developing the methodology, parts, and IP behind productised construction.",
+  "sameAs": [],
+};
 ---
 
 <BaseLayout
   title="PATTERNFORMS — STUDIO.SUPPLY.SYSTEMS"
   description="A research-and-design atelier developing the methodology, parts, and IP behind productised construction. First product line, PatternHouse, in development."
   canonical="https://pattern-forms-website.vercel.app/"
+  structuredData={orgSchema}
 >
 
   <!-- HERO -->
