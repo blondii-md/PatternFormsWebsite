@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const founders = [
+  {
+    name: "MIYAN DAGAN",
+    role: "Co-founder · Studio lead",
+    linkedin: "https://www.linkedin.com/in/miyanmd/",
+    bio: "Two decades learning, designing and generating buildings and engineered products for market. Always thinking about our next thing.",
+  },
+  {
+    name: "ROB NESTIC",
+    role: "Co-founder · Supply lead",
+    linkedin: "https://www.linkedin.com/in/robert-nestic-5a26b527/",
+    bio: "3 decades on Building Engineering and an Engineered Timber expert. Loves building things from the workshop.",
+  },
+];
+---
+
+<BaseLayout
+  title="About — PATTERNFORMS"
+  description="Research and design atelier based in Melbourne. Two arms: Studio covers architecture and engineering. Supply covers procurement and fabrication. Founded by Miyan Dagan and Rob Nestic."
+  canonical="https://pattern-forms-website.vercel.app/about"
+>
+  <div class="pf-page">
+    <section class="pf-container">
+
+      <div class="pf-section-head" style="margin-bottom: 24px;">
+        <p class="pf-eyebrow">02 · ABOUT</p>
+      </div>
+
+      <div class="pf-rail-grid">
+        <div class="pf-rail">
+          <div><strong>STATUS</strong></div>
+          <div>v0 · MAY 2026</div>
+          <div style="margin-top: 8px;"><strong>BASED</strong></div>
+          <div>MELBOURNE, AU</div>
+          <div style="margin-top: 8px;"><strong>STRUCTURE</strong></div>
+          <div>2 ARMS · R&amp;D ACROSS</div>
+          <div style="margin-top: 8px;"><strong>FIRST LINE</strong></div>
+          <div style="color: var(--pf-terra);">PATTERNHOUSE — IN DEV.</div>
+        </div>
+
+        <div class="pf-about-body">
+          <p class="pf-body">
+            We are a research and design atelier for productised building based in Melbourne, Australia.
+          </p>
+          <p class="pf-body">
+            We believe that buildings in Australia should be a predictable, safe and transparent journey.
+            We develop the architectural framework, methodology, parts, and intellectual property behind
+            a new kind of construction — designed, documented, and supplied as a system.
+          </p>
+          <p class="pf-body">
+            Our first product line, <span style="color: var(--pf-terra);">PatternHouse</span>, is in development.
+          </p>
+          <p class="pf-body">
+            The company operates as two arms with R&amp;D running through both.<br />
+            — Studio covers architecture, engineering, and digital systems.<br />
+            — Supply covers procurement, fabrication, and manufacturing.
+          </p>
+          <p class="pf-body" style="color: var(--pf-grey-60);">
+            Founded by Miyan Dagan and Rob Nestic.
+          </p>
+
+          <div class="pf-founders-grid">
+            {founders.map(f => (
+              <div class="pf-founder-meta">
+                <div class="pf-founder-name">{f.name}</div>
+                <div class="pf-founder-role">{f.role}</div>
+                <p class="pf-body" style="margin-top: 8px;">{f.bio}</p>
+                <a
+                  class="pf-arrow-link"
+                  href={f.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  style="margin-top: auto; padding-top: 12px;"
+                >
+                  LinkedIn <span class="arrow">→</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pf-about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 720px;
+  }
+  .pf-founders-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    margin-top: 8px;
+  }
+  @media (max-width: 768px) {
+    .pf-founders-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .pf-founder-meta { display: flex; flex-direction: column; gap: 6px; }
+  .pf-founder-name {
+    font-family: var(--pf-font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--pf-ink);
+  }
+  .pf-founder-role {
+    font-family: var(--pf-font-body);
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--pf-grey-60);
+    margin-bottom: 4px;
+  }
+</style>

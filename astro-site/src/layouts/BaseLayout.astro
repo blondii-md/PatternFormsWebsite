@@ -10,6 +10,17 @@ interface Props {
 
 const { title, description, ogImage, canonical } = Astro.props;
 const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+
+const pathname = Astro.url.pathname;
+const navItems = [
+  { href: '/about',  label: 'About'  },
+  { href: '/studio', label: 'Studio' },
+  { href: '/supply', label: 'Supply' },
+  { href: '/system', label: 'System' },
+  { href: '/blog',   label: 'Output' },
+];
+const isActive = (href: string) =>
+  pathname === href || (href !== '/' && pathname.startsWith(href));
 ---
 
 <!doctype html>
@@ -44,7 +55,7 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
       rel="stylesheet"
     />
 
-    <!-- Favicon -->
+    <!-- Favicon (inline SVG data URI — PF pixel mark) -->
     <link
       rel="icon"
       type="image/svg+xml"
@@ -53,6 +64,121 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
   </head>
 
   <body data-surface="white">
-    <slot />
+
+    <!-- ── HEADER (static; mobile hamburger is a TODO: React island) ── -->
+    <header class="pf-header">
+      <div class="pf-container">
+        <div class="pf-header-row">
+
+          <a href="/" aria-label="PatternForms — home" class="pf-brand">
+            <span class="pf-brand-mark">
+              <!-- PF pixel mark — 4×3 cell grid, size 11 -->
+              <svg viewBox="0 0 44 33" width="44" height="33" aria-hidden="true">
+                <g transform="scale(11)" fill="currentColor">
+                  <path d="M 1 0 L 1 1 L 0 1 L 0 1 A 1 1 0 0 1 1 0 Z"/>
+                  <path d="M 0 1 h 1 v 1 h -1 z"/>
+                  <path d="M 0 2 L 1 2 L 1 3 A 1 1 0 0 1 0 2 Z"/>
+                  <path d="M 1 1 L 2 1 A 1 1 0 0 0 1 0 L 1 0 Z"/>
+                  <path d="M 1 1 L 2 1 L 2 1 A 1 1 0 0 1 1 2 L 1 2 Z"/>
+                  <path d="M 3 0 L 3 1 L 2 1 L 2 1 A 1 1 0 0 1 3 0 Z"/>
+                  <path d="M 2 1 h 1 v 1 h -1 z"/>
+                  <path d="M 2 2 L 3 2 L 3 3 A 1 1 0 0 1 2 2 Z"/>
+                  <path d="M 3 0 L 4 0 A 1 1 0 0 1 3 1 L 3 1 Z"/>
+                  <path d="M 3 1 L 4 1 L 4 1 A 1 1 0 0 1 3 2 L 3 2 Z"/>
+                </g>
+              </svg>
+            </span>
+            <span class="pf-brand-word">PATTERNFORMS</span>
+          </a>
+
+          <nav class="pf-nav" aria-label="Primary">
+            {navItems.map(n => (
+              <a
+                href={n.href}
+                class={`pf-nav-link${isActive(n.href) ? ' is-active' : ''}`}
+              >
+                {n.label}
+              </a>
+            ))}
+          </nav>
+
+          <!-- TODO: port hamburger + mobile menu as React island -->
+
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="pf-footer">
+      <div class="pf-container pf-footer-inner">
+        <div class="pf-footer-top">
+
+          <div class="pf-footer-brand">
+            <a href="/" aria-label="PatternForms — home" class="pf-footer-brand-link">
+              <span style="width: 64px; display: inline-block;">
+                <svg viewBox="0 0 64 48" width="64" height="48" aria-hidden="true">
+                  <g transform="scale(16)" fill="#F6F4EF">
+                    <path d="M 1 0 L 1 1 L 0 1 L 0 1 A 1 1 0 0 1 1 0 Z"/>
+                    <path d="M 0 1 h 1 v 1 h -1 z"/>
+                    <path d="M 0 2 L 1 2 L 1 3 A 1 1 0 0 1 0 2 Z"/>
+                    <path d="M 1 1 L 2 1 A 1 1 0 0 0 1 0 L 1 0 Z"/>
+                    <path d="M 1 1 L 2 1 L 2 1 A 1 1 0 0 1 1 2 L 1 2 Z"/>
+                    <path d="M 3 0 L 3 1 L 2 1 L 2 1 A 1 1 0 0 1 3 0 Z"/>
+                    <path d="M 2 1 h 1 v 1 h -1 z"/>
+                    <path d="M 2 2 L 3 2 L 3 3 A 1 1 0 0 1 2 2 Z"/>
+                    <path d="M 3 0 L 4 0 A 1 1 0 0 1 3 1 L 3 1 Z"/>
+                    <path d="M 3 1 L 4 1 L 4 1 A 1 1 0 0 1 3 2 L 3 2 Z"/>
+                  </g>
+                </svg>
+              </span>
+              <span class="pf-brand-word" style="font-size: 32px; color: #F6F4EF; letter-spacing: -0.04em;">
+                PATTERNFORMS
+              </span>
+            </a>
+            <div class="pf-footer-subhead">STUDIO.SUPPLY.SYSTEMS</div>
+            <p class="pf-body" style="color: #C9C7C2; max-width: 380px; font-size: 13px;">
+              A research-and-design atelier developing the methodology, parts, and IP
+              behind productised construction in Melbourne, Australia.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+            <div class="pf-footer-nav-col">
+              <h4>Atelier</h4>
+              {navItems.map(n => (
+                <a href={n.href}>{n.label}</a>
+              ))}
+            </div>
+            <div class="pf-footer-nav-col">
+              <h4>Contact</h4>
+              <a href="mailto:iwant@patternforms.au">iwant@patternforms.au</a>
+              <a href="/patternhouse">PatternHouse →</a>
+            </div>
+          </div>
+
+        </div>
+
+        <hr class="pf-footer-rule" />
+
+        <div class="pf-footer-bottom">
+          <div>PATTERNFORMS &nbsp;·&nbsp; DESIGNING IN MELBOURNE &nbsp;·&nbsp; © 2026</div>
+          <div>v0.1 &nbsp;·&nbsp; THE SYSTEM IS THE WORK</div>
+        </div>
+
+      </div>
+    </footer>
+
   </body>
 </html>
+
+<style>
+  .pf-footer-brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+</style>

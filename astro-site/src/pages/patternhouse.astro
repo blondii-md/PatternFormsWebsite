@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="PatternHouse — PATTERNFORMS"
+  description="PatternHouse is the first product line from the PatternForms system — a productised house. Architecture as a documented, supplied artefact. In development."
+  canonical="https://pattern-forms-website.vercel.app/patternhouse"
+>
+  <div class="pf-page">
+    <section class="pf-container">
+
+      <div class="pf-section-head">
+        <p class="pf-eyebrow">06 · PATTERNHOUSE</p>
+        <h1 class="pf-section-title">
+          <span style="color: var(--pf-terra);">PATTERNHOUSE</span><br />
+          IN.DEVELOPMENT
+        </h1>
+        <p class="pf-lede">
+          The first product line developed through the PatternForms system —
+          a productised house. Architecture as a documented, supplied artefact.
+          This page is reserved; the line ships when the line is ready.
+        </p>
+      </div>
+
+      <div class="pf-rail-grid">
+        <div class="pf-rail">
+          <div><strong>STATUS</strong></div>
+          <div style="color: var(--pf-terra);">IN DEVELOPMENT</div>
+          <div style="margin-top: 8px;"><strong>ROUTE</strong></div>
+          <div>/patternhouse</div>
+          <div style="margin-top: 8px;"><strong>PARENT</strong></div>
+          <div>PATTERNFORMS</div>
+        </div>
+
+        <div class="pf-ph-body">
+          <p class="pf-body" style="font-size: 15px;">
+            PatternHouse is the working title for the first product line
+            developed under the PatternForms system. The system is the work; the
+            house is the first thing it produces.
+          </p>
+          <p class="pf-body" style="font-size: 15px; color: var(--pf-grey-60);">
+            When the line is ready to publish, the brand, sub-marks, and parts
+            documentation will appear here. The route is reserved so existing
+            references don't break.
+          </p>
+          <div class="pf-ph-actions">
+            <a href="/" class="pf-btn pf-btn--ghost">Back to PatternForms</a>
+            <a href="/blog" class="pf-btn">Workings</a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pf-ph-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 640px;
+  }
+  .pf-ph-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+</style>
