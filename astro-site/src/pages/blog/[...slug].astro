@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { TileComposition, pickBlogComp } from '../../components/compositions.jsx';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const comp = pickBlogComp(post.data.seed);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: { "@type": "Organization", name: "PatternForms" },
+  publisher: {
+    "@type": "Organization",
+    name: "PatternForms",
+    url: "https://pattern-forms-website.vercel.app",
+  },
+  url: `https://pattern-forms-website.vercel.app/blog/${post.id}`,
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} — PATTERNFORMS`}
+  description={post.data.description}
+  canonical={`https://pattern-forms-website.vercel.app/blog/${post.id}`}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <div class="pf-page">
+    <section class="pf-container">
+      <div class="pf-post-inner">
+
+        <a href="/blog" class="pf-back-link" style="margin-bottom: 56px; display: inline-flex; align-items: center; gap: 8px;">
+          <span>←</span> 06 · OUTPUT
+        </a>
+
+        <div class="pf-post-meta">
+          <span class="pf-eyebrow">{formatDate(post.data.pubDate)}</span>
+          <span class="pf-eyebrow">{post.data.tag}</span>
+        </div>
+
+        <h1 class="pf-post-title">{post.data.title}</h1>
+
+        <p class="pf-post-excerpt">{post.data.description}</p>
+
+        <div class="pf-post-cover">
+          <TileComposition
+            comp={comp}
+            cell={64}
+            color="#0A0A0A"
+            terraColor="#B8553A"
+            ariaHidden
+          />
+          <div class="pf-post-cover-cap">
+            FIG. {post.data.seed.toUpperCase()} &nbsp;·&nbsp; TILE COMPOSITION
+          </div>
+        </div>
+
+        <div class="pf-post-body">
+          <Content />
+        </div>
+
+        <a href="/blog" class="pf-back-link" style="margin-top: 80px; display: inline-flex; align-items: center; gap: 8px;">
+          <span>←</span> Back to Output
+        </a>
+
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pf-post-inner { max-width: 720px; margin: 0 auto; }
+  .pf-post-meta {
+    display: flex;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--pf-grey-30);
+    margin-bottom: 32px;
+  }
+  .pf-post-title {
+    font-family: var(--pf-font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    color: var(--pf-ink);
+    margin: 0 0 24px;
+    text-wrap: pretty;
+  }
+  .pf-post-excerpt {
+    font-family: var(--pf-font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--pf-grey-60);
+    margin: 0 0 48px;
+    max-width: 640px;
+  }
+  .pf-post-cover {
+    background: var(--pf-paper);
+    border: 1px solid var(--pf-grey-30);
+    padding: 32px;
+    margin-bottom: 56px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .pf-post-cover > svg {
+    flex: 1;
+    max-width: 100%;
+    min-height: 0;
+  }
+  .pf-post-cover-cap {
+    font-family: var(--pf-font-body);
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--pf-grey-60);
+    border-top: 1px solid var(--pf-grey-30);
+    padding-top: 12px;
+  }
+  .pf-post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .pf-post-body :global(p) {
+    font-family: var(--pf-font-body);
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--pf-ink);
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .pf-post-cover { padding: 20px; }
+  }
+</style>

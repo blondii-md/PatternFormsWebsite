@@ -1,54 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
-const posts = [
-  {
-    slug: "stand-frame-v3",
-    titleDisplay: "Stand-frame v3 off the CNC",
-    date: "2026-05-12",
-    excerpt: "12 parts, four fixings per node, ±1 mm tolerance. The skeleton of the chassis, broken open.",
-    tag: "FABRICATION",
-  },
-  {
-    slug: "what-is-a-kit-of-parts",
-    titleDisplay: "What is a Kit of Parts, really?",
-    date: "2026-04-28",
-    excerpt: "A short note on terminology. Kit of Parts ≠ catalogue of parts. The difference matters.",
-    tag: "METHODOLOGY",
-  },
-  {
-    slug: "compliance-as-a-feature",
-    titleDisplay: "Compliance as a feature, not a tax",
-    date: "2026-04-10",
-    excerpt: "Treat code compliance the way fabricators treat tolerances: a system constraint that does design work for you.",
-    tag: "PRACTICE",
-  },
-  {
-    slug: "modular-versus-systematic",
-    titleDisplay: "Modular ≠ Systematic",
-    date: "2026-03-22",
-    excerpt: "Most 'modular' housing is just prefabricated boxes. Systematic means the system thinks; the box is incidental.",
-    tag: "ARGUMENT",
-  },
-  {
-    slug: "drawings-are-specifications",
-    titleDisplay: "Drawings are specifications",
-    date: "2026-03-04",
-    excerpt: "The line between an architectural drawing and a fabrication spec is a fiction.",
-    tag: "METHODOLOGY",
-  },
-  {
-    slug: "first-laminated-timber-pour",
-    titleDisplay: "First laminated timber chassis off the press",
-    date: "2026-02-14",
-    excerpt: "Seven layers, glued under hydraulic pressure, cured in 14 hours. The chassis came out a kilo under spec.",
-    tag: "FABRICATION",
-  },
-].sort((a, b) => (a.date < b.date ? 1 : -1));
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-function formatDate(iso: string) {
-  const d = new Date(iso + "T00:00:00");
-  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
 }
 ---
 
@@ -70,12 +28,12 @@ function formatDate(iso: string) {
 
       <div class="pf-workings-grid">
         {posts.map(post => (
-          <a href={`/blog/${post.slug}`} class="pf-blog-card">
-            <div class="pf-blog-tag">{post.tag}</div>
-            <h3 class="pf-blog-title">{post.titleDisplay}</h3>
-            <p class="pf-blog-excerpt">{post.excerpt}</p>
+          <a href={`/blog/${post.id}`} class="pf-blog-card">
+            <div class="pf-blog-tag">{post.data.tag}</div>
+            <h3 class="pf-blog-title">{post.data.title}</h3>
+            <p class="pf-blog-excerpt">{post.data.description}</p>
             <div class="pf-blog-foot">
-              <span class="pf-blog-date">{formatDate(post.date)}</span>
+              <span class="pf-blog-date">{formatDate(post.data.pubDate)}</span>
               <span class="pf-blog-readmore">READ →</span>
             </div>
           </a>
