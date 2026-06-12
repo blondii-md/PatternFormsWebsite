@@ -4,7 +4,7 @@
    Unbounded for display, IBM Plex Mono for body. */
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; overflow-x: clip; }
 html { scroll-behavior: smooth; }
 
 body {
@@ -36,17 +36,18 @@ img { display: block; max-width: 100%; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--pf-bg);
-  border-bottom: 1px solid transparent;
-  transition: border-color 240ms var(--pf-ease-snap);
+  background: transparent;
+  transition: background 240ms var(--pf-ease-snap);
 }
-.pf-header.is-scrolled { border-bottom-color: var(--pf-grey-30); }
+.pf-header.is-scrolled {
+  background: #FFFFFF;
+}
 
 .pf-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: 64px;
   gap: 32px;
 }
 
@@ -164,19 +165,19 @@ img { display: block; max-width: 100%; }
 
 /* ───── Footer ───── */
 .pf-footer {
-  margin-top: 128px;
+  margin-top: 96px;
   background: var(--pf-ink);
   color: var(--pf-paper);
 }
 .pf-footer-inner {
-  padding-top: 96px;
-  padding-bottom: 48px;
+  padding-top: 56px;
+  padding-bottom: 32px;
 }
 .pf-footer-top {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  gap: 64px;
-  padding-bottom: 64px;
+  gap: 48px;
+  padding-bottom: 40px;
   align-items: flex-start;
 }
 .pf-footer-brand {
@@ -243,8 +244,8 @@ img { display: block; max-width: 100%; }
 .pf-footer-bottom a:hover { color: var(--pf-terra); border-bottom-color: var(--pf-terra); }
 
 @media (max-width: 768px) {
-  .pf-footer { margin-top: 96px; }
-  .pf-footer-inner { padding-top: 64px; }
+  .pf-footer { margin-top: 64px; }
+  .pf-footer-inner { padding-top: 40px; }
   .pf-footer-top {
     grid-template-columns: 1fr;
     gap: 48px;

@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { TileShuffleHero } from '../components/animations.jsx';
-
-const gridCols = Array.from({ length: 13 }, (_, i) => (i / 12) * 100);
+import { TileShuffleHero, LEFT_LOGO_START, RIGHT_LOGO_START } from '../components/animations.jsx';
 
 const orgSchema = {
   "@context": "https://schema.org",
@@ -26,35 +24,52 @@ const orgSchema = {
   <section class="pf-home-hero">
     <div class="pf-container pf-home-hero-inner">
 
-      <div class="pf-grid-overlay" aria-hidden="true">
-        {gridCols.map(pct => <div class="col" style={`left: ${pct}%`}></div>)}
-      </div>
-
-      <div class="pf-hero-meta">
-        <div class="pf-subhead" style="font-size: 12px;">STUDIO.SUPPLY.SYSTEMS</div>
-        <div class="pf-eyebrow" style="letter-spacing: 0.10em;">BUILDING ATELIER</div>
-      </div>
-
       <div class="pf-hero-stage">
-        <div class="pf-hero-mark">
-          <TileShuffleHero size={120} color="#0A0A0A" client:load />
-        </div>
-        <div class="pf-hero-mark-cap">
-          <span>FIG. 01 &nbsp;·&nbsp; PF MONOGRAM / TILE-FLICKER</span>
-          <span>PATTERN → LOGO → PATTERN &nbsp;·&nbsp; ~7.2s LOOP</span>
+        <div class="pf-hero-mark-pair">
+          <div class="pf-hero-mark">
+            <TileShuffleHero size={60} color="#0A0A0A" showGrid={true} logoStart={LEFT_LOGO_START} client:load />
+          </div>
+          <div class="pf-hero-mark pf-hero-mark--second">
+            <TileShuffleHero size={60} color="#0A0A0A" showGrid={true} logoStart={RIGHT_LOGO_START} client:load />
+          </div>
         </div>
       </div>
 
       <div class="pf-hero-foot">
-        <p class="pf-eyebrow">00 · WHAT WE ARE</p>
+        <p class="pf-eyebrow">00 · WHO WE ARE</p>
         <p class="pf-body pf-hero-body">
           A research-and-design atelier developing the methodology, parts, and IP
           behind productised construction here in Victoria.
-          <br /><br />
-          We are architects and engineers. Our first product line —
-          <span style="color: var(--pf-terra);"> PatternHouse </span>
-          — is in development.
         </p>
+
+        <div class="pf-hero-foot-row">
+          <p class="pf-body pf-hero-body">
+            We are architects and engineers. Our first product line —
+            <span style="color: var(--pf-terra);"> PatternHouse </span>
+            — is in development.
+          </p>
+
+          <div class="pf-subscribe">
+            <p class="pf-eyebrow pf-subscribe-label">
+              PatternHouse is coming — want to be first through the door?
+            </p>
+            <form class="pf-subscribe-row" action="https://formsubmit.co/interest@patternforms.au" method="POST">
+              <input type="hidden" name="_subject" value="PatternHouse launch interest" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input
+                type="email"
+                name="email"
+                class="pf-input pf-subscribe-input"
+                placeholder="your@email.com"
+                aria-label="Email address"
+                required
+              />
+              <button type="submit" class="pf-btn">
+                Keep me posted →
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -71,7 +86,7 @@ const orgSchema = {
         <article class="pf-wwd-col">
           <h3 class="pf-wwd-head">STUDIO</h3>
           <p class="pf-subhead pf-wwd-pillars">
-            ARCHITECTURE.<br />ENGINEERING.<br />DIGITAL.SYSTEMS
+            ARCHITECTURE.<br />ENGINEERING.<br />PROJECTS.
           </p>
           <p class="pf-body">
             We work with clients to design and deliver architecturally vested buildings.
@@ -95,7 +110,7 @@ const orgSchema = {
         <article class="pf-wwd-col">
           <h3 class="pf-wwd-head pf-wwd-head--alt">SYSTEMS</h3>
           <p class="pf-subhead pf-wwd-pillars">
-            METHODOLOGY.<br />PARTS.<br />INTELLECTUAL.PROPERTY
+            METHODOLOGY.<br />TOOLS.<br />PRINCIPLES.
           </p>
           <p class="pf-body">Runs through both arms. Sharpens with every version.</p>
           <a href="/system" class="pf-arrow-link" style="margin-top: auto;">
@@ -110,71 +125,85 @@ const orgSchema = {
 
 <style>
   .pf-home-hero {
-    position: relative;
-    min-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
   }
   .pf-home-hero-inner {
     position: relative;
-    padding-top: 32px;
-    padding-bottom: 80px;
+    padding-top: 0;
+    padding-bottom: 48px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    flex: 1;
-  }
-  .pf-hero-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
+    gap: 32px;
   }
   .pf-hero-stage {
-    flex: 1;
+    width: 100%;
+  }
+  .pf-hero-mark-pair {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 32px 0;
-    position: relative;
-    z-index: 1;
-    min-height: 320px;
+    gap: 0;
+    width: 100%;
   }
   .pf-hero-mark {
-    width: 100%;
-    max-width: 920px;
+    flex: 1;
+    min-width: 0;
   }
-  .pf-hero-mark-cap {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 920px;
-    font-family: var(--pf-font-body);
-    font-size: 10px;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: var(--pf-grey-60);
-    flex-wrap: wrap;
-    gap: 12px;
+  @media (max-width: 768px) {
+    .pf-hero-mark--second { display: none; }
   }
   .pf-hero-foot {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 640px;
     padding-top: 8px;
   }
   .pf-hero-body {
     font-size: 14px;
     line-height: 1.7;
     color: var(--pf-grey-60);
-    max-width: 540px;
   }
-  @media (max-width: 900px) {
-    .pf-hero-mark-cap span:last-child { display: none; }
+  .pf-hero-foot-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  @media (max-width: 768px) {
+    .pf-hero-foot-row { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  .pf-subscribe {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+  }
+  .pf-subscribe-label {
+    font-size: 11px;
+    color: var(--pf-grey-60);
+  }
+  .pf-subscribe-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pf-subscribe-input {
+    width: 190px;
+    max-width: 100%;
+    height: 32px;
+    background: transparent;
+    color: var(--pf-ink);
+    border: 1px solid var(--pf-grey-30);
+    padding: 0 10px;
+    font-family: var(--pf-font-body);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .pf-subscribe-input:focus { outline: none; border-color: var(--pf-ink); }
+  .pf-subscribe .pf-btn {
+    height: 32px;
+    padding: 0 16px;
+    font-size: 10px;
   }
   .pf-wwd { padding: 0; }
   .pf-wwd-grid {
@@ -189,7 +218,6 @@ const orgSchema = {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    min-height: 360px;
   }
   .pf-wwd-head {
     font-family: var(--pf-font-display);

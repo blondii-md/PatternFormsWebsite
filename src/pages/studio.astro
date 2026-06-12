@@ -4,15 +4,56 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Studio — PATTERNFORMS"
-  description="Architecture, engineering, and digital systems. We design and document the system — drawings, DfMA strategy, Kit of Parts, and compliance pathways."
+  description="An architecture practice with in-house engineering, and the genesis of everything PatternForms makes."
   canonical="https://pattern-forms-website.vercel.app/studio"
 >
   <div class="pf-page">
     <section class="pf-container">
-      <div class="pf-section-head">
-        <p class="pf-eyebrow">03 · STUDIO</p>
+
+      <div class="pf-rail-grid">
+        <div class="pf-rail">
+          <p class="pf-eyebrow" style="margin-bottom: 16px;">03 · STUDIO</p>
+          <div><strong>DISCIPLINE</strong></div>
+          <div>ARCHITECTURE<br />+ ENGINEERING</div>
+          <div style="margin-top: 8px;"><strong>BUILT FORM</strong></div>
+          <div>RESIDENTIAL<br />1 + 2 STOREY</div>
+          <div style="margin-top: 8px;"><strong>COMPONENTS</strong></div>
+          <div>IN-HOUSE</div>
+        </div>
+
+        <div class="pf-studio-body">
+          <p class="pf-body">
+            We are an architecture practice with in-house engineering, and the genesis of everything we make.
+          </p>
+          <p class="pf-body">
+            We design single and double-storey dwellings — and any associated project work —
+            built and assembled from our own in-house components. A system configured to your
+            requirements, your site, and your taste.
+          </p>
+          <p class="pf-body">
+            Architecture and engineering work side by side here, which means fewer hand-offs
+            and a design that is ready to assemble from the first concept.
+          </p>
+          <p class="pf-body">
+            Our practice is energised by new challenges and by individual character —
+            which we believe results in bespoke and celebrated buildings.
+          </p>
+          <p class="pf-body" style="color: var(--pf-grey-60);">
+            Our systems and methodology serve one purpose: to make good design easier
+            to repeat — like a pattern — not to flatten it.
+          </p>
+        </div>
       </div>
-      <p class="pf-body" style="color: var(--pf-terra);">Sorry, busy designing in the studio.</p>
+
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .pf-studio-body {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    max-width: 720px;
+  }
+</style>

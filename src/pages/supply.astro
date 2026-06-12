@@ -4,15 +4,63 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="Supply — PATTERNFORMS"
-  description="Procurement, fabrication, and manufacturing. We design and supply the parts — laminated timber chassis, modular sub-assemblies, and kitted components."
+  description="The manufacturing arm of PatternForms. We procure, machine, and supply the components and assemblies behind PatternForms and PatternHouse projects."
   canonical="https://pattern-forms-website.vercel.app/supply"
 >
   <div class="pf-page">
     <section class="pf-container">
-      <div class="pf-section-head">
-        <p class="pf-eyebrow">04 · SUPPLY</p>
+
+      <div class="pf-rail-grid">
+        <div class="pf-rail">
+          <p class="pf-eyebrow" style="margin-bottom: 16px;">04 · SUPPLY</p>
+          <div><strong>FUNCTION</strong></div>
+          <div>MANUFACTURING</div>
+          <div style="margin-top: 8px;"><strong>MATERIALS</strong></div>
+          <div>ENGINEERED TIMBER</div>
+          <div style="margin-top: 8px;"><strong>METHOD</strong></div>
+          <div>DfMA</div>
+          <div style="margin-top: 8px;"><strong>OUTPUT</strong></div>
+          <div>KIT-OF-PARTS<br />OR ASSEMBLED</div>
+        </div>
+
+        <div class="pf-supply-body">
+          <p class="pf-body">
+            The parts behind every PatternForms project — born from the same system as the design.
+          </p>
+          <p class="pf-body">
+            Supply is the manufacturing arm of PatternForms. Here we procure, machine, and supply
+            the components and assemblies behind PatternForms and PatternHouse projects.
+          </p>
+          <p class="pf-body">
+            Our buildings are designed from the part up — to complement the multi-faceted
+            requirements of our system through an exacting design process.
+          </p>
+          <p class="pf-body">
+            What the Studio creates, Supply delivers, and nothing is lost in translation between them.
+            This is done through our systemised work.
+          </p>
+          <p class="pf-body">
+            We bring deep experience in engineered timber and the supply chains behind it, and we apply
+            Design for Manufacture and Assembly (DfMA) principles — so every component is designed
+            for the way it is made, moved, and put together.
+          </p>
+          <p class="pf-body" style="color: var(--pf-grey-60);">
+            Our workshop utilises highly accurate CNC machines and robots to ensure industrial
+            tolerances meet our system specification. This means we are able to provide building
+            components as a kit-of-parts, or fully assembled, depending on project requirements.
+          </p>
+        </div>
       </div>
-      <p class="pf-body" style="color: var(--pf-terra);">Sorry, busy designing in the workshop.</p>
+
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .pf-supply-body {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    max-width: 720px;
+  }
+</style>

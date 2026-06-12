@@ -9,12 +9,140 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <div class="pf-page">
     <section class="pf-container">
-      <div class="pf-section-head">
-        <p class="pf-eyebrow">05 · SYSTEM</p>
+
+      <div class="pf-rail-grid">
+        <div class="pf-rail">
+          <p class="pf-eyebrow" style="margin-bottom: 16px;">05 · SYSTEM</p>
+          <div><strong>FUNCTION</strong></div>
+          <div>R&amp;D</div>
+          <div style="margin-top: 8px;"><strong>DISCIPLINES</strong></div>
+          <div>DfMA<br />COMPUTATION<br />PLATFORM LOGIC</div>
+          <div style="margin-top: 8px;"><strong>RUNS THROUGH</strong></div>
+          <div>STUDIO + SUPPLY</div>
+        </div>
+
+        <div class="pf-system-body">
+          <p class="pf-body">
+            Where Studio and Supply synthesise — elevating the products and projects we make for you.
+          </p>
+          <p class="pf-body">
+            This is our R&amp;D frontier: bridging the gap between Design for Manufacture and Assembly
+            (DfMA) of a Kit of Parts, and the real, unique requirements of your project.
+          </p>
+          <p class="pf-body">
+            Systemised building is still new ground in Australia — and the world, really. We are
+            interested in one idea: that a whole project can be answered by a system stacked by design
+            inputs, parts, data, and the tools that tie them together.
+          </p>
+          <p class="pf-body">
+            In pursuing this, we borrow terms and practices from established industries — automotive,
+            heavy industry, manufacturing — in our purpose to productise the major aspects of building
+            assemblies.
+          </p>
+
+          <!-- PILLARS -->
+          <div class="pf-pillars">
+            <p class="pf-eyebrow" style="margin-bottom: 24px;">SOME PILLARS OF INTEREST</p>
+            <div class="pf-pillars-grid">
+              <div class="pf-pillar">
+                <h4 class="pf-pillar-head">PLATFORM LOGIC</h4>
+                <p class="pf-pillar-body">The fewest parts that produce the most variety.</p>
+              </div>
+              <div class="pf-pillar">
+                <h4 class="pf-pillar-head">PHYSICAL RATIONALISATION</h4>
+                <p class="pf-pillar-body">Fewer components, cleaner connections, simpler assembly.</p>
+              </div>
+              <div class="pf-pillar">
+                <h4 class="pf-pillar-head">DATA BACKBONE</h4>
+                <p class="pf-pillar-body">One source of truth, from design through to the bill of materials.</p>
+              </div>
+              <div class="pf-pillar">
+                <h4 class="pf-pillar-head">COMPUTATION</h4>
+                <p class="pf-pillar-body">Software that executes the system with speed and accuracy.</p>
+              </div>
+              <div class="pf-pillar">
+                <h4 class="pf-pillar-head">COMMERCIALISATION</h4>
+                <p class="pf-pillar-body">Building delivered as a product, refined version over version — not reinvented each project.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="pf-body">
+            We will keep the how to ourselves for now. What makes us unusual in Melbourne is that
+            we speak both languages of construction and manufacturing.
+          </p>
+          <p class="pf-body">
+            If any of this resonates, we would be glad to talk.{' '}
+            <a href="mailto:interest@patternforms.au" class="pf-inline-link">interest@patternforms.au</a>
+          </p>
+          <p class="pf-body" style="color: var(--pf-grey-60);">
+            PS. The system does not replace the design response of a project, nor control project
+            aesthetics. We believe in individual and crafted building projects — just ones that enjoy
+            predictable and effective components under the hood ;)
+          </p>
+        </div>
       </div>
-      <p class="pf-body" style="color: var(--pf-terra);">
-        The hardest form of complexity is simplicity.
-      </p>
+
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .pf-system-body {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    max-width: 720px;
+  }
+
+  .pf-pillars {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pf-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 1024px) {
+    .pf-pillars-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .pf-pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .pf-pillar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pf-pillar-head {
+    font-family: var(--pf-font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--pf-ink);
+    margin: 0;
+  }
+
+  .pf-pillar-body {
+    font-family: var(--pf-font-body);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--pf-grey-60);
+    margin: 0;
+  }
+
+  .pf-inline-link {
+    border-bottom: 1px solid var(--pf-grey-30);
+    padding-bottom: 1px;
+    transition: color 200ms var(--pf-ease-snap), border-color 200ms var(--pf-ease-snap);
+  }
+  .pf-inline-link:hover {
+    color: var(--pf-terra);
+    border-bottom-color: var(--pf-terra);
+  }
+</style>

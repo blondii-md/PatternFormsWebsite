@@ -2,14 +2,21 @@ import React from 'react';
 import { PF_PIXEL_FINAL } from './marks';
 import { TileShape, TILE_SET_CURVY, TILE_SET_LETTER } from './tile-shape';
 
-const FLICKER_MS = 1200;
 const CRYSTAL_MS = 2200;
 const HOLD_MS = 1800;
 const DISSOLVE_MS = 2200;
-const CYCLE_MS = FLICKER_MS + CRYSTAL_MS + HOLD_MS + DISSOLVE_MS;
+const LOGO_MS = CRYSTAL_MS + HOLD_MS + DISSOLVE_MS; // 6200ms one logo phase
+const JOINT_MS = 2000;                               // both-flicker gap between logos
+const MASTER_CYCLE_MS = (JOINT_MS + LOGO_MS) * 2;   // 16400ms full loop
 const FLIP_INTERVAL_MS = 140;
-const SHUFFLE_MS = FLICKER_MS;
+const SHUFFLE_MS = 1200;
 const SETTLE_MS = CRYSTAL_MS;
+// Left logoStart = JOINT_MS; Right logoStart = JOINT_MS + LOGO_MS + JOINT_MS
+export const LEFT_LOGO_START  = JOINT_MS;
+export const RIGHT_LOGO_START = JOINT_MS + LOGO_MS + JOINT_MS;
+
+// Shared module-level clock — both instances synchronise to this
+let sharedStart = null;
 
 const pickRandom = (set) => set[(Math.random() * set.length) | 0];
 
@@ -20,8 +27,12 @@ export const TileShuffleHero = ({
   running = true,
   showGrid = false,
   gridColor = "#C9C7C2",
+  logoStart = LEFT_LOGO_START,
 }) => {
   const W = 4, H = 3;
+
+  // Initialise shared clock on first mount across all instances
+  if (sharedStart === null) sharedStart = performance.now();
 
   const finalByCell = React.useMemo(() => {
     const map = {};
@@ -44,18 +55,12 @@ export const TileShuffleHero = ({
   }, []);
 
   const [tick, setTick] = React.useState(0);
-  const startRef = React.useRef(performance.now());
 
   React.useEffect(() => {
     if (!running) return;
     let raf;
     let lastFlip = 0;
     const step = (now) => {
-      let elapsed = now - startRef.current;
-      if (elapsed > CYCLE_MS) {
-        startRef.current = now;
-        elapsed = 0;
-      }
       if (now - lastFlip > FLIP_INTERVAL_MS) {
         lastFlip = now;
         setTick((t) => t + 1);
@@ -66,19 +71,24 @@ export const TileShuffleHero = ({
     return () => cancelAnimationFrame(raf);
   }, [running]);
 
-  const elapsed = running ? (performance.now() - startRef.current) : (FLICKER_MS + CRYSTAL_MS + 100);
+  const masterElapsed = running
+    ? (performance.now() - sharedStart) % MASTER_CYCLE_MS
+    : logoStart + CRYSTAL_MS + 100;
 
+  const logoEnd = logoStart + LOGO_MS;
   let wave;
-  if (elapsed < FLICKER_MS) {
+  if (masterElapsed < logoStart || masterElapsed >= logoEnd) {
     wave = 0;
-  } else if (elapsed < FLICKER_MS + CRYSTAL_MS) {
-    const p = (elapsed - FLICKER_MS) / CRYSTAL_MS;
-    wave = 0.5 - 0.5 * Math.cos(Math.PI * p);
-  } else if (elapsed < FLICKER_MS + CRYSTAL_MS + HOLD_MS) {
-    wave = 1;
   } else {
-    const p = (elapsed - FLICKER_MS - CRYSTAL_MS - HOLD_MS) / DISSOLVE_MS;
-    wave = 1 - (0.5 - 0.5 * Math.cos(Math.PI * p));
+    const t = masterElapsed - logoStart;
+    if (t < CRYSTAL_MS) {
+      wave = 0.5 - 0.5 * Math.cos(Math.PI * (t / CRYSTAL_MS));
+    } else if (t < CRYSTAL_MS + HOLD_MS) {
+      wave = 1;
+    } else {
+      const p = (t - CRYSTAL_MS - HOLD_MS) / DISSOLVE_MS;
+      wave = 1 - (0.5 - 0.5 * Math.cos(Math.PI * p));
+    }
   }
 
   const cells = [];

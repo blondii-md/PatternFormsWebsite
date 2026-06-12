@@ -18,7 +18,7 @@ const navItems = [
   { href: '/studio', label: 'Studio' },
   { href: '/supply', label: 'Supply' },
   { href: '/system', label: 'System' },
-  { href: '/blog',   label: 'Output' },
+  { href: '/blog',   label: 'Blog'   },
 ];
 const isActive = (href: string) =>
   pathname === href || (href !== '/' && pathname.startsWith(href));
@@ -162,7 +162,7 @@ const isActive = (href: string) =>
             </div>
             <div class="pf-footer-nav-col">
               <h4>Contact</h4>
-              <a href="mailto:iwant@patternforms.au">iwant@patternforms.au</a>
+              <a href="mailto:interest@patternforms.au">interest@patternforms.au</a>
               <a href="/patternhouse">PatternHouse →</a>
             </div>
           </div>
@@ -173,12 +173,18 @@ const isActive = (href: string) =>
 
         <div class="pf-footer-bottom">
           <div>PATTERNFORMS &nbsp;·&nbsp; DESIGNING IN MELBOURNE &nbsp;·&nbsp; © 2026</div>
-          <div>v0.1 &nbsp;·&nbsp; THE SYSTEM IS THE WORK</div>
+          <div>v0.2 &nbsp;·&nbsp; SYSTEMISED BUILDING BY DESIGN</div>
         </div>
 
       </div>
     </footer>
 
+    <script>
+      const header = document.querySelector('.pf-header');
+      const update = () => header.classList.toggle('is-scrolled', window.scrollY > 10);
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    </script>
   </body>
 </html>
 
